@@ -1,5 +1,5 @@
 # TRACCIA:
-![Traccia file](URL_dell'immagine)
+![Traccia file]([(https://github.com/GaetanoAlbano17/Minimizzazione-Costi-Manutenzione-Aerea-Boeing/blob/main/Traccia_Progetto_Boeing.pdf])
 
 
 # Minimizzazione-Costi-Manutenzione-Aerea-Boeing
