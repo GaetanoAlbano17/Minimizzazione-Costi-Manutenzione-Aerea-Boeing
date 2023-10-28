@@ -53,7 +53,7 @@ Nel nostro caso, P = 60.
 Ora definiamo le variabili del problema, fondamentali per la risoluzione, lo studio dei vincoli successivo e la descrizione della funzione obiettivo.
 Avremo variabili dedicate a latitudine e longitudine, al numero di aviogetti per i centri e per gli aeroporti, alla distanza geodetica tra centri e aeroporti, e, infine, alla variabile ‘z’ destinata al capire in quali condizioni di costruzioni siamo (quindi in quale area geografica).
 
-𝑥𝑖: rappresenta la variabile utilizzata per la latitudine del centro i (90◦S ≤ 𝑥𝑖≤ 90◦N), quindi (-90◦ ≤ 𝑥𝑖<=90°);
+𝑥𝑖: rappresenta la variabile utilizzata per la latitudine del centro i (90°S ≤ 𝑥𝑖≤ 90°N), quindi (-90° ≤ 𝑥𝑖<=90°);
 
 𝑦𝑖: rappresenta la variabile utilizzata per la longitudine del centro i (20◦W ≤ 𝑦𝑖≤ 160◦E), quindi (-20° <= 𝑦𝑖<= 160°);
 
@@ -61,17 +61,17 @@ Avremo variabili dedicate a latitudine e longitudine, al numero di aviogetti per
 
 𝑑𝑖𝑗: distanza geodetica tra il centro i e l’aeroporto j (𝑑𝑖𝑗≥ 0);
 
-𝑧𝑖 che vale 1 se il centro i è costruito tra 20◦W e 40◦E, 0 altrimenti.
+𝑧𝑖 che vale 1 se il centro i è costruito tra 20°W e 40°E, 0 altrimenti.
 
 ## Funzione obiettivo
 Importante, successivamente, è formulare la funzione obiettivo, decisiva nell’intento di decidere dove localizzare i centri di manutenzione minimizzando i costi dell’operazione.
 La funzione obiettivo suddetta, è incentrata su un problema di minimizzazione.
 
-min Σ(𝐶1∗𝑧𝑖+𝐶2∗(1−𝑧𝑖)+ α∗Σ𝑤𝑖𝑗∗𝑑𝑖𝑗)𝑗≤𝑚𝑖≤𝑛
+min Σ(𝐶1∗𝑧𝑖+𝐶2∗(1−𝑧𝑖)+ α∗Σ𝑤𝑖𝑗∗𝑑𝑖𝑗) 𝑗≤𝑛
 
 Quindi, sostituendo i valori noti:
 
-min Σ(300∗𝑧𝑖+150∗(1−𝑧𝑖)+ 50∗Σ𝑤𝑖𝑗∗𝑑𝑖𝑗)𝑗≤𝑚𝑖≤𝑛
+min Σ(300∗𝑧𝑖+150∗(1−𝑧𝑖)+ 50∗Σ𝑤𝑖𝑗∗𝑑𝑖𝑗) 𝑗≤𝑛
 
 La funzione obiettivo è una funzione di minimizzazione che combina i costi di costruzione dei centri di servizio, il costo di servizio (dipendente dalla distanza) e il flusso di aviogetti tra centri e aeroporti. L’obiettivo è quello di minimizzare i costi totali dell’operazione, considerando sia costi di costruzioni che costi di servizio.
 
@@ -80,27 +80,29 @@ Importante è successivamente la parte dedicata ai vincoli di progetto, per gest
 I vincoli a cui tener conto per sviluppare il progetto sono legati alle distanze, alla capienza dei centri, alla manutenzione sugli aviogetti, al definire z. Poi, è importante tener conto dei domini delle variabili.
 
 #### Vincolo sulle distanze
-𝑑𝑖𝑗=2𝑟∗asin√sin2(𝑥𝑖− 𝛿𝑗2)+cos𝑥𝑖∗cos𝛿𝑗∗sin2(𝛾𝑖− 𝜑𝑗2) ,∀ i≤n,∀ j≤m
+𝑑𝑖𝑗=2𝑟∗asin√((sin^2((𝑥𝑖− 𝛿𝑗)/2)+cos𝑥𝑖∗cos𝛿𝑗∗sin^2((𝛾𝑖− 𝜑𝑗)/2)) ,∀ i≤n,∀ j≤m
+
 Il vincolo sulle distanze rappresenta la formula per calcolare la distanza geodetica tra centro di servizio i e aeroporto j. La formula utilizza latitudine, definita come x, e longitudine, definita come y, per calcolare la distanza sulla superficie terrestre utilizzando la formula definita nella traccia del problema.
 
 #### Vincolo sulla capienza dei centri
-Σ𝑤𝑖𝑗≤𝑃 ∀𝑖≤𝑛𝑗 ≤ 𝑚
+Σ𝑤𝑖𝑗≤𝑃 (j≤𝑚) ∀𝑖≤𝑛𝑗 
 
 Quindi:
 
-Σ𝑤𝑖𝑗≤60 ∀𝑖≤𝑛𝑗 ≤ 𝑚
+Σ𝑤𝑖𝑗≤60 (j≤𝑚) ∀𝑖≤𝑛𝑗 
 
 Il vincolo suddetto impone che la somma di tutti i flussi di aviogetti da tutti gli aeroporti al centro di servizio non debbano superare la capienza massima del centro. L’obiettivo è quello che non arrivino più aviogetti di quelli gestibili.
 
 #### Vincolo sulla manutenzione sugli aviogetti
-Σ𝑤𝑖𝑗=𝐴𝑗 ∀𝑗≤𝑚𝑖≤ 𝑛
+Σ𝑤𝑖𝑗=𝐴𝑗 (𝑗≤𝑛)
 
 Questo vincolo impone che la somma di tutti i flussi di aviogetti da tutti gli aeroporti al centro di servizio sia uguale al numero atteso di aviogetti da servire nell’aeroporto.
 𝐴𝑗, da problema, rappresenta il numero di aviogetti dei vari aeroporti j.
 Viene garantito, grazie a ciò, che tutti gli aviogetti provenienti da un certo aeroporto ricevano la manutenzione necessaria.
 
 #### Vincolo sulla variabile z
-𝑦𝑖−40°≤360°∗ 𝑧𝑖 ∀𝑖≤𝑛 𝑦𝑖−40°≥−360°∗(1− 𝑧𝑖) ∀𝑖≤𝑛
+𝑦𝑖−40°≤360°∗ 𝑧𝑖 ∀𝑖≤𝑛 
+𝑦𝑖−40°≥−360°∗(1− 𝑧𝑖) ∀𝑖≤𝑛
 
 Questo vincolo definisce la variabile z come una variabile binaria, fondamentale nell’indicare se il centro di servizio sia costruito nell’area europea (tra 20°W e 40°E) o nell’area asiatica (tra 40°E e 160°E).
 
@@ -126,12 +128,17 @@ Per affrontare al meglio il problema, ho deciso di utilizzare Excel, in modo da 
 Dopo aver affrontato il problema in maniera scritta per derivare dal testo i vari possibili parametri e vincoli del problema, ho innanzitutto riportato i dati del problema (messi in tabella nelle varie colonne dedicate ad Aeroporto, Latitudine, Longitudine e numero di aviogetti annuo) sul foglio di calcolo. Per la latitudine Sud e longitudine Ovest ho posto valori negativi, anche se, ovviamente, per le funzioni seno e coseno (rispettivamente dispari e pari) non sarebbe cambiato niente.
 
 Posti valori inizialmente casuali sulle variabili da trovare, ho innanzitutto dato valori possibili alle latitudini e longitudine dei centri. È stato poi fondamentale ricavare i valori delle distanze geodetiche tra i centri ‘i’ e gli aeroporti ‘j’.
-Per il calcolo della distanza geodetica sulle celle ho utilizzato funzioni trigonometriche presenti in Excel, basandomi sulla formula precedentemente definita: 𝑑𝑖𝑗=2𝑟∗asin√sin2(𝑥𝑖− 𝛿𝑗2)+cos𝑥𝑖∗cos𝛿𝑗∗sin2(𝛾𝑖− 𝜑𝑗2) Ovviamente, ho svolto lo stesso calcolo per ogni 𝑑𝑖𝑗(centri ‘i’ da 1 a 5, Aeroporti ‘j’ da 1 a 12).
+Per il calcolo della distanza geodetica sulle celle ho utilizzato funzioni trigonometriche presenti in Excel, basandomi sulla formula precedentemente definita: 
+
+𝑑𝑖𝑗=2𝑟∗asin√((sin^2((𝑥𝑖− 𝛿𝑗)/2))+cos𝑥𝑖∗cos𝛿𝑗∗sin^2((𝛾𝑖− 𝜑𝑗)/2)) 
+
+Ovviamente, ho svolto lo stesso calcolo per ogni 𝑑𝑖𝑗(centri ‘i’ da 1 a 5, Aeroporti ‘j’ da 1 a 12).
 
 Per il vincolo sulla capienza dei centri, ho posto minore di 60 la somma, per ogni centro, di tutti gli aviogetti provenienti dagli aeroporti j.
 
 Successivamente, ho posto poi anche un vincolo dedicato alla manutenzione degli aviogetti, in previsione che la somma degli aviogetti per ogni centro fosse uguale al numero di aviogetti, dati da testo, per ogni aeroporto.
-Una tabella, inoltre, è stata destinata al vincolo per z, in cui abbiamo posto le due condizioni precedenti: 𝑦𝑖−40°≤360°∗ 𝑧𝑖 ∀𝑖≤𝑛
+Una tabella, inoltre, è stata destinata al vincolo per z, in cui abbiamo posto le due condizioni precedenti: 
+𝑦𝑖−40°≤360°∗ 𝑧𝑖 ∀𝑖≤𝑛
 
 𝑦𝑖−40°≥−360°∗(1− 𝑧𝑖) ∀𝑖≤𝑛
 
